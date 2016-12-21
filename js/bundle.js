@@ -8779,13 +8779,20 @@
 		props: ['image'],
 		data: function data() {
 			return {
-				shown: false
+				shown: null
 			};
 		},
 
 		computed: {
 			background: function background() {
 				return 'background-image: url(' + this.image + ');';
+			},
+			boxClass: function boxClass() {
+				if (this.shown !== null) {
+					return this.shown ? 'shown' : 'hidden';
+				} else {
+					return 'initalized';
+				}
 			}
 		},
 		methods: {
@@ -8814,7 +8821,7 @@
 	      "click": _vm.show
 	    }
 	  }, [_vm._t("default")], true), _vm._v(" "), _c('div', {
-	    class: 'box-container' + (_vm.shown ? ' shown' : ' hidden'),
+	    class: 'box-container ' + _vm.boxClass,
 	    on: {
 	      "click": _vm.hide
 	    }

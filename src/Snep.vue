@@ -3,7 +3,7 @@
 		<div class="trigger" @click="show">
 			<slot></slot>
 		</div>
-		<div :class="'box-container' + (shown ? ' shown' : ' hidden')" @click="hide">
+		<div :class="'box-container ' + boxClass" @click="hide">
 			<div :style="background"></div>
 		</div>
 	</div>
@@ -14,12 +14,19 @@
 		props: ['image'],
 		data () {
 			return {
-				shown: false,
+				shown: null,
 			}
 		},
 		computed: {
 			background () {
 				return 'background-image: url(' + this.image + ');';
+			},
+			boxClass () {
+				if (this.shown !== null) {
+					return (this.shown ? 'shown' : 'hidden');
+				} else {
+					return 'initalized';
+				}
 			}
 		},
 		methods: {
