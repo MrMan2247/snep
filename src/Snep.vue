@@ -48,7 +48,8 @@
 	.snep {
 		position: relative;
 		display: inline-block;
-		cursor: pointer;
+		
+		* { cursor: pointer; }
 
 		.box-container {
 			position: fixed;
