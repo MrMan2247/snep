@@ -2,7 +2,7 @@
   "name": "snep",
   "version": "1.0.0",
   "description": "A lightbox that uses Vue or something",
-  "main": "index.js",
+  "main": "src/Snep.vue",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
