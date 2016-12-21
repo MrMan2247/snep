@@ -8471,7 +8471,7 @@
 
 
 	// module
-	exports.push([module.id, "\n.snep {\n  position: relative;\n  display: inline-block;\n  cursor: pointer;\n}\n.snep .box-container {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100vw;\n    height: 100vh;\n    background: rgba(20, 20, 20, 0.75);\n    z-index: 9999999;\n}\n.snep .box-container > div {\n      width: 80vw;\n      height: 80vh;\n      background-size: contain;\n      background-repeat: no-repeat;\n      background-position: center center;\n      position: absolute;\n      left: 50%;\n      top: 50%;\n      transform: translate(-50%, -50%);\n}\n.snep .box-container.hidden {\n      display: none;\n}\n.snep .box-container.shown {\n      display: block;\n}\n.snep .trigger {\n    height: 100%;\n    width: 100%;\n}\n", ""]);
+	exports.push([module.id, "\n.snep {\n  position: relative;\n  display: inline-block;\n  cursor: pointer;\n}\n.snep .box-container {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100vw;\n    height: 100vh;\n    background: rgba(20, 20, 20, 0.75);\n    z-index: 9999999;\n    opacity: 0;\n    z-index: -9999999;\n    animation-duration: 0.5s;\n    animation-fill-mode: forwards;\n}\n.snep .box-container > div {\n      width: 80vw;\n      height: 80vh;\n      background-size: contain;\n      background-repeat: no-repeat;\n      background-position: center center;\n      position: absolute;\n      left: 50%;\n      top: 50%;\n      transform: translate(-50%, -50%);\n}\n@keyframes hide {\n0% {\n    z-index: 9999999;\n    opacity: 1;\n}\n99% {\n    z-index: 9999999;\n    opacity: 0;\n}\n100% {\n    z-index: -9999999;\n    opacity: 0;\n}\n}\n@keyframes show {\n0% {\n    z-index: -9999999;\n    opacity: 0;\n}\n1% {\n    z-index: 9999999;\n    opacity: 0;\n}\n100% {\n    z-index: 9999999;\n    opacity: 1;\n}\n}\n.snep .box-container.hidden {\n      animation-name: hide;\n}\n.snep .box-container.shown {\n      animation-name: show;\n}\n.snep .trigger {\n    height: 100%;\n    width: 100%;\n}\n", ""]);
 
 	// exports
 
@@ -8797,7 +8797,6 @@
 			}
 		},
 		mounted: function mounted() {
-			// Preloader
 			new Image().src = this.image;
 		}
 	};

@@ -14,7 +14,7 @@
 		props: ['image'],
 		data () {
 			return {
-				shown: false
+				shown: false,
 			}
 		},
 		computed: {
@@ -30,14 +30,14 @@
 				this.shown = false;
 			}
 		},
-		mounted () {
-			// Preloader
-			(new Image()).src = this.image;
-		}
+		mounted () { (new Image()).src = this.image; }
 	}
 </script>
 
 <style lang="scss">
+	$send-to-back: -9999999;
+	$send-to-front: 9999999;
+
 	.snep {
 		position: relative;
 		display: inline-block;
@@ -51,6 +51,8 @@
 			height: 100vh;
 			background: rgba(20, 20, 20, 0.75);
 			z-index: 9999999;
+			opacity: 0;
+			z-index: $send-to-back;
 
 			>div {
 				width: 80vw;
@@ -64,8 +66,41 @@
 				transform: translate(-50%, -50%);
 			}
 
-			&.hidden { display: none;  }
-			&.shown  { display: block; }
+			@keyframes hide {
+				0% {
+					z-index: $send-to-front;
+					opacity: 1;
+				}
+				99% {
+					z-index: $send-to-front;
+					opacity: 0;
+				}
+				100% {
+					z-index: $send-to-back;
+					opacity: 0;
+				}
+			}
+
+			@keyframes show {
+				0% {
+					z-index: $send-to-back;
+					opacity: 0;
+				}
+				1% {
+					z-index: $send-to-front;
+					opacity: 0;
+				}
+				100% {
+					z-index: $send-to-front;
+					opacity: 1;
+				}
+			}
+
+			animation-duration: 0.5s;
+			animation-fill-mode: forwards;
+
+			&.hidden  { animation-name: hide; }
+			&.shown  { animation-name: show; }
 		}
 
 		.trigger {
