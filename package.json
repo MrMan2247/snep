@@ -16,12 +16,12 @@
     "node-sass": "^3.13.0",
     "sass-loader": "^4.0.2",
     "scss-loader": "0.0.1",
-    "vue": "^2.1.4",
     "vue-loader": "^10.0.2",
     "vue-template-compiler": "^2.1.4",
-    "webpack": "^1.13.3"
+    "webpack": "^1.13.3",
+    "vue-style-loader": "^1.0.0"
   },
   "dependencies": {
-    "vue-style-loader": "^1.0.0"
+    "vue": "^2.1.4"
   }
 }
