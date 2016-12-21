@@ -58,7 +58,6 @@
 			width: 100vw;
 			height: 100vh;
 			background: rgba(20, 20, 20, 0.75);
-			z-index: 9999999;
 			opacity: 0;
 			z-index: $send-to-back;
 
