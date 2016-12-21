@@ -48,7 +48,7 @@
 	.snep {
 		position: relative;
 		display: inline-block;
-		
+
 		* { cursor: pointer; }
 
 		.box-container {
@@ -71,7 +71,8 @@
 				position: absolute;
 				left: 50%;
 				top: 50%;
-				transform: translate(-50%, -50%);
+				transform: translate(-50%, calc(-50% - 100px));
+				transition: 0.5s transform;
 			}
 
 			@keyframes hide {
@@ -107,8 +108,16 @@
 			animation-duration: 0.5s;
 			animation-fill-mode: forwards;
 
-			&.hidden  { animation-name: hide; }
-			&.shown  { animation-name: show; }
+			&.hidden  {
+				animation-name: hide;
+
+				>div { transform: translate(-50%, calc(-50% - 100px)); }
+			}
+			&.shown  {
+				animation-name: show;
+
+				>div { transform: translate(-50%, -50%); }
+			}
 		}
 
 		.trigger {
