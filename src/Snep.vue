@@ -6,6 +6,8 @@
 		<div :class="'image-container ' + containerClass">
 			<div class="btns" v-if="!plain">
 				<div class="btn" @click="rotate(90)">&#x21bb;</div>
+				<div class="btn" @click="scale(0.1)">+</div>
+				<div class="btn" @click="scale(-0.1)">-</div>
 				<div class="btn" @click="rotate(-90)">&#x21ba;</div>
 			</div>
 			<div class="image" :style="imageStyle" @click="hide"></div>
@@ -20,7 +22,8 @@
 			return {
 				shown: null,
 				state: {
-					rotation: 0
+					rotation: 0,
+					scale: 1
 				}
 			}
 		},
@@ -32,6 +35,9 @@
 				var style = this.background + ";transform: translate(-50%, -50%)";
 				if (this.state.rotation) {
 					style += " rotate(" + this.state.rotation + "deg)";
+				}
+				if (this.state.scale !== 1) {
+					style += " scale(" + this.state.scale + ")";
 				}
 				return style;
 			},
@@ -52,6 +58,9 @@
 			},
 			rotate ( amount ) {
 				this.state.rotation = (this.state.rotation + amount) % 360;
+			},
+			scale ( amount ) {
+				this.state.scale = this.state.scale + amount;
 			}
 		},
 		mounted () { (new Image()).src = this.image; }
@@ -86,6 +95,8 @@
 				margin: 0 auto;
 				padding: 10px;
 				z-index: $send-to-front;
+
+				* { user-select: none; }
 
 				.btn {
 					flex: 1 1 40px;

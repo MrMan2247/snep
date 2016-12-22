@@ -8471,7 +8471,7 @@
 
 
 	// module
-	exports.push([module.id, "\n.snep {\n  position: relative;\n  display: inline-block;\n}\n.snep * {\n    cursor: pointer;\n}\n.snep .image-container {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100vw;\n    height: 100vh;\n    background: rgba(20, 20, 20, 0.75);\n    opacity: 0;\n    z-index: -9999999;\n    animation-duration: 0.5s;\n    animation-fill-mode: forwards;\n}\n.snep .image-container .btns {\n      position: relative;\n      display: flex;\n      width: 100vw;\n      max-width: 320px;\n      margin: 0 auto;\n      padding: 10px;\n      z-index: 9999999;\n}\n.snep .image-container .btns .btn {\n        flex: 1 1 40px;\n        color: white;\n        font-size: 1.3rem;\n        text-align: center;\n}\n.snep .image-container .btns .btn:hover {\n          color: rgba(255, 255, 255, 0.8);\n}\n.snep .image-container .image {\n      width: 80vw;\n      height: 80vh;\n      background-size: contain;\n      background-repeat: no-repeat;\n      background-position: center center;\n      position: absolute;\n      left: 50%;\n      top: 50%;\n      transform: translate(-50%, calc(-50% - 100px));\n      transition: 0.5s transform;\n}\n@keyframes hide {\n0% {\n    z-index: 9999999;\n    opacity: 1;\n}\n99% {\n    z-index: 9999999;\n    opacity: 0;\n}\n100% {\n    z-index: -9999999;\n    opacity: 0;\n}\n}\n@keyframes show {\n0% {\n    z-index: -9999999;\n    opacity: 0;\n}\n1% {\n    z-index: 9999999;\n    opacity: 0;\n}\n100% {\n    z-index: 9999999;\n    opacity: 1;\n}\n}\n.snep .image-container.hidden {\n      animation-name: hide;\n}\n.snep .image-container.hidden .image {\n        transform: translate(-50%, calc(-50% - 100px));\n}\n.snep .image-container.shown {\n      animation-name: show;\n}\n.snep .image-container.shown .image {\n        transform: translate(-50%, -50%);\n}\n.snep .trigger {\n    height: 100%;\n    width: 100%;\n}\n", ""]);
+	exports.push([module.id, "\n.snep {\n  position: relative;\n  display: inline-block;\n}\n.snep * {\n    cursor: pointer;\n}\n.snep .image-container {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100vw;\n    height: 100vh;\n    background: rgba(20, 20, 20, 0.75);\n    opacity: 0;\n    z-index: -9999999;\n    animation-duration: 0.5s;\n    animation-fill-mode: forwards;\n}\n.snep .image-container .btns {\n      position: relative;\n      display: flex;\n      width: 100vw;\n      max-width: 320px;\n      margin: 0 auto;\n      padding: 10px;\n      z-index: 9999999;\n}\n.snep .image-container .btns * {\n        user-select: none;\n}\n.snep .image-container .btns .btn {\n        flex: 1 1 40px;\n        color: white;\n        font-size: 1.3rem;\n        text-align: center;\n}\n.snep .image-container .btns .btn:hover {\n          color: rgba(255, 255, 255, 0.8);\n}\n.snep .image-container .image {\n      width: 80vw;\n      height: 80vh;\n      background-size: contain;\n      background-repeat: no-repeat;\n      background-position: center center;\n      position: absolute;\n      left: 50%;\n      top: 50%;\n      transform: translate(-50%, calc(-50% - 100px));\n      transition: 0.5s transform;\n}\n@keyframes hide {\n0% {\n    z-index: 9999999;\n    opacity: 1;\n}\n99% {\n    z-index: 9999999;\n    opacity: 0;\n}\n100% {\n    z-index: -9999999;\n    opacity: 0;\n}\n}\n@keyframes show {\n0% {\n    z-index: -9999999;\n    opacity: 0;\n}\n1% {\n    z-index: 9999999;\n    opacity: 0;\n}\n100% {\n    z-index: 9999999;\n    opacity: 1;\n}\n}\n.snep .image-container.hidden {\n      animation-name: hide;\n}\n.snep .image-container.hidden .image {\n        transform: translate(-50%, calc(-50% - 100px));\n}\n.snep .image-container.shown {\n      animation-name: show;\n}\n.snep .image-container.shown .image {\n        transform: translate(-50%, -50%);\n}\n.snep .trigger {\n    height: 100%;\n    width: 100%;\n}\n", ""]);
 
 	// exports
 
@@ -8778,6 +8778,8 @@
 	//
 	//
 	//
+	//
+	//
 
 	exports.default = {
 		props: ['image', 'plain'],
@@ -8785,7 +8787,8 @@
 			return {
 				shown: null,
 				state: {
-					rotation: 0
+					rotation: 0,
+					scale: 1
 				}
 			};
 		},
@@ -8798,6 +8801,9 @@
 				var style = this.background + ";transform: translate(-50%, -50%)";
 				if (this.state.rotation) {
 					style += " rotate(" + this.state.rotation + "deg)";
+				}
+				if (this.state.scale !== 1) {
+					style += " scale(" + this.state.scale + ")";
 				}
 				return style;
 			},
@@ -8818,6 +8824,9 @@
 			},
 			rotate: function rotate(amount) {
 				this.state.rotation = (this.state.rotation + amount) % 360;
+			},
+			scale: function scale(amount) {
+				this.state.scale = this.state.scale + amount;
 			}
 		},
 		mounted: function mounted() {
@@ -8849,6 +8858,20 @@
 	      }
 	    }
 	  }, [_vm._v("↻")]), _vm._v(" "), _c('div', {
+	    staticClass: "btn",
+	    on: {
+	      "click": function($event) {
+	        _vm.scale(0.1)
+	      }
+	    }
+	  }, [_vm._v("+")]), _vm._v(" "), _c('div', {
+	    staticClass: "btn",
+	    on: {
+	      "click": function($event) {
+	        _vm.scale(-0.1)
+	      }
+	    }
+	  }, [_vm._v("-")]), _vm._v(" "), _c('div', {
 	    staticClass: "btn",
 	    on: {
 	      "click": function($event) {
