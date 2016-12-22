@@ -4,7 +4,7 @@
 			<slot></slot>
 		</div>
 		<div :class="'image-container ' + containerClass">
-			<div class="btns" v-if="plain !== undefined">
+			<div class="btns" v-if="plain === undefined">
 				<div class="btn" @click="rotate(45)">&#x21bb;</div>
 				<div class="btn" @click="scale(0.1)">+</div>
 				<div :class="'btn reset' + (isReset ? '' : ' ready')" @click="reset">&#x2205;</div>

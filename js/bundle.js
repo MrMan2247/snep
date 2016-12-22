@@ -8861,7 +8861,7 @@
 	    }
 	  }, [_vm._t("default")], true), _vm._v(" "), _c('div', {
 	    class: 'image-container ' + _vm.containerClass
-	  }, [(_vm.plain !== undefined) ? _c('div', {
+	  }, [(_vm.plain === undefined) ? _c('div', {
 	    staticClass: "btns"
 	  }, [_c('div', {
 	    staticClass: "btn",
