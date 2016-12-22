@@ -3,25 +3,39 @@
 		<div class="trigger" @click="show">
 			<slot></slot>
 		</div>
-		<div :class="'box-container ' + boxClass" @click="hide">
-			<div :style="background"></div>
+		<div :class="'image-container ' + containerClass">
+			<div class="btns" v-if="!plain">
+				<div class="btn" @click="rotate(90)">&#x21bb;</div>
+				<div class="btn" @click="rotate(-90)">&#x21ba;</div>
+			</div>
+			<div class="image" :style="imageStyle" @click="hide"></div>
 		</div>
 	</div>
 </template>
 
 <script>
 	export default {
-		props: ['image'],
+		props: ['image', 'plain'],
 		data () {
 			return {
 				shown: null,
+				state: {
+					rotation: 0
+				}
 			}
 		},
 		computed: {
 			background () {
 				return 'background-image: url(' + this.image + ');';
 			},
-			boxClass () {
+			imageStyle () {
+				var style = this.background + ";transform: translate(-50%, -50%)";
+				if (this.state.rotation) {
+					style += " rotate(" + this.state.rotation + "deg)";
+				}
+				return style;
+			},
+			containerClass () {
 				if (this.shown !== null) {
 					return (this.shown ? 'shown' : 'hidden');
 				} else {
@@ -35,6 +49,9 @@
 			},
 			hide () {
 				this.shown = false;
+			},
+			rotate ( amount ) {
+				this.state.rotation = (this.state.rotation + amount) % 360;
 			}
 		},
 		mounted () { (new Image()).src = this.image; }
@@ -51,7 +68,7 @@
 
 		* { cursor: pointer; }
 
-		.box-container {
+		.image-container {
 			position: fixed;
 			top: 0;
 			left: 0;
@@ -61,7 +78,28 @@
 			opacity: 0;
 			z-index: $send-to-back;
 
-			>div {
+			.btns {
+				position: relative;
+				display: flex;
+				width: 100vw;
+				max-width: 320px;
+				margin: 0 auto;
+				padding: 10px;
+				z-index: $send-to-front;
+
+				.btn {
+					flex: 1 1 40px;
+					color: rgba(255,255,255,1);
+					font-size: 1.3rem;
+					text-align: center;
+
+					&:hover {
+						color: rgba(255,255,255,0.8);
+					}
+				}
+			}
+
+			.image {
 				width: 80vw;
 				height: 80vh;
 				background-size: contain;
@@ -110,12 +148,12 @@
 			&.hidden  {
 				animation-name: hide;
 
-				>div { transform: translate(-50%, calc(-50% - 100px)); }
+				.image { transform: translate(-50%, calc(-50% - 100px)); }
 			}
 			&.shown  {
 				animation-name: show;
 
-				>div { transform: translate(-50%, -50%); }
+				.image { transform: translate(-50%, -50%); }
 			}
 		}
 
