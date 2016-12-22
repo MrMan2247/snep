@@ -1,6 +1,6 @@
 {
   "name": "snep",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A lightbox that uses Vue or something",
   "main": "src/Snep.vue",
   "scripts": {
