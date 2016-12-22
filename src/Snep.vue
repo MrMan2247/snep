@@ -7,6 +7,7 @@
 			<div class="btns" v-if="!plain">
 				<div class="btn" @click="rotate(90)">&#x21bb;</div>
 				<div class="btn" @click="scale(0.1)">+</div>
+				<div :class="'btn reset' + (isReset ? '' : ' ready')" @click="reset">&#x2205;</div>
 				<div class="btn" @click="scale(-0.1)">-</div>
 				<div class="btn" @click="rotate(-90)">&#x21ba;</div>
 			</div>
@@ -47,6 +48,12 @@
 				} else {
 					return 'initalized';
 				}
+			},
+			isReset () {
+				return JSON.stringify(this.state) === JSON.stringify({
+					rotation: 0,
+					scale: 1
+				})
 			}
 		},
 		methods: {
@@ -61,6 +68,12 @@
 			},
 			scale ( amount ) {
 				this.state.scale = this.state.scale + amount;
+			},
+			reset () {
+				this.state = {
+					rotation: 0,
+					scale: 1
+				}
 			}
 		},
 		mounted () { (new Image()).src = this.image; }
@@ -100,12 +113,28 @@
 
 				.btn {
 					flex: 1 1 40px;
-					color: rgba(255,255,255,1);
+					color: rgba(205,205,205,0.6);
 					font-size: 1.3rem;
 					text-align: center;
+					text-shadow: -1px 1px 0 rgba(15,15,15,0.75);
+					transition: all 0.2s ease;
 
 					&:hover {
-						color: rgba(255,255,255,0.8);
+						color: rgba(205,205,205,0.8);
+						text-shadow: -1px 1px 0 rgba(1,1,1,1);
+					}
+
+					&.reset {
+						flex: 0 0 0;
+						opacity: 0;
+						overflow: hidden;
+						line-height: 29px;
+						transition: 0.4s all ease;
+
+						&.ready {
+							flex: 1 1 40px;
+							opacity: 1;
+						}
 					}
 				}
 			}
