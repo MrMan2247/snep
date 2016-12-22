@@ -37,6 +37,9 @@ module.exports = {
     ]
   },
   vue: {
-    loaders: { js: 'babel' }
+    loaders: {
+      js: 'babel',
+      scss: 'vue-style!css!sass'
+    }
   }
 }
