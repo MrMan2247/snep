@@ -5,11 +5,11 @@
 		</div>
 		<div :class="'image-container ' + containerClass">
 			<div class="btns" v-if="!plain">
-				<div class="btn" @click="rotate(90)">&#x21bb;</div>
+				<div class="btn" @click="rotate(45)">&#x21bb;</div>
 				<div class="btn" @click="scale(0.1)">+</div>
 				<div :class="'btn reset' + (isReset ? '' : ' ready')" @click="reset">&#x2205;</div>
 				<div class="btn" @click="scale(-0.1)">-</div>
-				<div class="btn" @click="rotate(-90)">&#x21ba;</div>
+				<div class="btn" @click="rotate(-45)">&#x21ba;</div>
 			</div>
 			<div class="image" :style="imageStyle" @click="hide"></div>
 		</div>
@@ -185,12 +185,17 @@
 			animation-duration: 0.5s;
 			animation-fill-mode: forwards;
 
-			&.hidden  {
+			&.initalized {
+				.image { transform: translate(-50%, calc(-50% - 100px)) !important; }
+			}
+
+			&.hidden {
 				animation-name: hide;
 
-				.image { transform: translate(-50%, calc(-50% - 100px)); }
+				.image { transform: translate(-50%, calc(-50% - 100px)) !important; }
 			}
-			&.shown  {
+
+			&.shown {
 				animation-name: show;
 
 				.image { transform: translate(-50%, -50%); }
