@@ -28,3 +28,13 @@ you can then use the component on your site using the `<snep>` tag:
 </snep>
 ...
 ```
+
+if you'd like to remove the controls for rotation and scaling, just add the `plain` directive:
+
+```html
+...
+<snep plain image="large-image.jpg">
+    <img src="thumbnail.jpg"/>
+</snep>
+...
+```
